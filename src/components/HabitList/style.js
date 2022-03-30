@@ -4,8 +4,11 @@ import styled from 'styled-components'
 
 
 export const ContainerHabits = styled.div`
+    box-sizing: border-box;
     background: #E5E5E5;
-    height: 100vh;
+    margin:70px 0 70px;
+    height: calc(100vh - 140px);
+    
     `
 export const HeaderHabits = styled.div`
     display: flex;
@@ -120,14 +123,14 @@ export const Day = styled.div`
     font-size: 19.976px;
     line-height: 25px;
     
-    background: ${props=> props.bg};
+    background: ${props => props.bg};
     color: #DBDBDB;
     :hover{
         background: #126BA5;
     }
 `
 
-export const ButtonsNewHabit= styled.div`
+export const ButtonsNewHabit = styled.div`
     display: flex;
     flex-direction: row;
 `
@@ -146,7 +149,7 @@ export const ButtonNewHabit = styled.div`
     justify-content:center;
     text-align: center;
 
-    color: ${props=>props.font};
+    color: ${props => props.font};
     
     background: ${props => props.Bgcolor};
     border-radius: 4.63636px;

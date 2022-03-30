@@ -11,6 +11,8 @@ export const Head = styled.div`
     width:100vw;
     align-items: center;
     padding: 0 18px;
+    position: fixed;
+    top: 0;
     
 
     .logo{
