@@ -9,7 +9,9 @@ import logoTracklt from './../../assets/Group 8.svg'
 
 export default function SignIn() {
     const navegation = useNavigate()
-    const notify = () => toast.success("Wow so easy!");
+    const notify = (mensage) => toast.success(mensage);
+    const [mensage,setMensage] = useState('')
+    
     const [dataUser, setDataUser] = useState({
         email: '',
         name: '',
@@ -23,6 +25,10 @@ export default function SignIn() {
             data: dataUser,
         }).then(response => {
             console.log(response.data)
+            notify('sucess')
+            
+            
+        }).then(()=>{
             setDataUser({
                 email: '',
                 name: '',
@@ -30,9 +36,12 @@ export default function SignIn() {
                 password: '',
             })    
             navegation('/')
-        }).catch(err => {
+           
+        })
+        .catch(err => {
+            notify('error')
             console.log(err)
-            alert('Preencha com dados válidos.')
+
             setDataUser({
                 email: '',
                 name: '',
@@ -65,7 +74,7 @@ export default function SignIn() {
                 <ToastContainer/>
                 {dataUser.email != '' && dataUser.name != '' && dataUser.image != '' && dataUser.password != '' ? <button className='btnLogin' onClick={registerNewUser}>Cadastrar</button> : <button className='btnLogin' onClick={registerNewUser} disabled>Cadastrar</button>}
                 <Link to='/' className='signinLink'>Já tem uma conta? Faça login!</Link>
-                <button className='btnLogin' onClick={notify}>teste</button>
+                {/* <button className='btnLogin' onClick={notify}>teste</button> */}
             </styled.Log>
 
         </>
