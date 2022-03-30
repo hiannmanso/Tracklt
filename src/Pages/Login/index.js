@@ -22,6 +22,7 @@ export default function Login() {
                 email: '',
                 password: '',
             })
+            navigate('/habits')
         }).catch(err => {
             console.log(err)
             setDataUser({

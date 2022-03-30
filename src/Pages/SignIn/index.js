@@ -9,9 +9,9 @@ import logoTracklt from './../../assets/Group 8.svg'
 
 export default function SignIn() {
     const navegation = useNavigate()
-    const notify = (mensage) => toast.success(mensage);
-    const [mensage,setMensage] = useState('')
-    
+    // const notify = (mensage) => toast.success(mensage);
+    const [mensage, setMensage] = useState('')
+
     const [dataUser, setDataUser] = useState({
         email: '',
         name: '',
@@ -25,21 +25,18 @@ export default function SignIn() {
             data: dataUser,
         }).then(response => {
             console.log(response.data)
-            notify('sucess')
-            
-            
-        }).then(()=>{
+            toast.success('cadastro feito com sucesso!')
             setDataUser({
                 email: '',
                 name: '',
                 image: '',
                 password: '',
-            })    
-            navegation('/')
-           
-        })
-        .catch(err => {
-            notify('error')
+            })
+            setInterval(() => navegation('/'), 2000)
+
+
+        }).catch(err => {
+            toast.warn('preencha com dados válidos.')
             console.log(err)
 
             setDataUser({
@@ -71,10 +68,10 @@ export default function SignIn() {
 
 
                 </div>
-                <ToastContainer/>
+                <ToastContainer />
                 {dataUser.email != '' && dataUser.name != '' && dataUser.image != '' && dataUser.password != '' ? <button className='btnLogin' onClick={registerNewUser}>Cadastrar</button> : <button className='btnLogin' onClick={registerNewUser} disabled>Cadastrar</button>}
                 <Link to='/' className='signinLink'>Já tem uma conta? Faça login!</Link>
-                {/* <button className='btnLogin' onClick={notify}>teste</button> */}
+
             </styled.Log>
 
         </>
