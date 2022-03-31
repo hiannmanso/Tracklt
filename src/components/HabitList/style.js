@@ -8,6 +8,7 @@ export const ContainerHabits = styled.div`
     background: #E5E5E5;
     margin:70px 0 70px;
     height: calc(100vh - 140px);
+    overflow-y: scroll;
     
     `
 export const HeaderHabits = styled.div`
@@ -51,7 +52,7 @@ export const HeaderHabits = styled.div`
 `
 export const BodyHabits = styled.div`
 
-    margin: 28px 20px 0 17px;
+    margin: 28px 20px 0 70px;
     h1{
        
         height: 74px;
@@ -157,4 +158,37 @@ export const ButtonNewHabit = styled.div`
     position: absolute;
     bottom: ${props => props.positionBotton};
     right:${props => props.positionRight};
+`
+
+export const Habit = styled.div`
+    position: relative;
+    width: calc(100% -35px);
+    margin: 0 18px 10px 17px;
+    min-height: 91px;
+    background: #FFFFFF;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom:10px;
+    .titleHabit{
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19.976px;
+        line-height: 25px;
+        color: #666666;
+        height: auto;
+        margin: 13px 0 8px 15px;
+    }
+    .days{
+        display: flex;
+        flex-direction: row;
+        margin: 0 0 15px 14px;
+    }
+    .icon{
+        height: 15px;
+        width: 13px;
+        position: absolute;
+        top: 11px;
+        right: 10px;
+    }
 `

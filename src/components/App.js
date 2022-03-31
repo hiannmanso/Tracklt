@@ -1,22 +1,29 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { useState } from 'react'
 
 import Login from "../Pages/Login"
 import SignIn from '../Pages/SignIn'
 import Habits from '../Pages/Habits'
 import Today from '../Pages/Today'
-import History  from '../Pages/History'
+import History from '../Pages/History'
+import userContext from '../Context/userContext'
 
 export default function App() {
+    const [infoUser, setInfoUser] = useState('');
+    const [habits,setHabits] = useState([])
     return (
         <BrowserRouter>
-            <Routes>
-                <Route path='/' element={<Login />} />
-                <Route path='/register' element={<SignIn />} />
-                <Route path='/habits' element={<Habits />} />
-                <Route path='/today' element={<Today />}/>
-                <Route path='/history' element={<History />}/>
+            <userContext.Provider value={{ infoUser, setInfoUser, habits, setHabits }}>
+                <Routes>
+                    <Route path='/' element={<Login />} />
+                    <Route path='/register' element={<SignIn />} />
+                    <Route path='/habits' element={<Habits />} />
+                    <Route path='/today' element={<Today />} />
+                    <Route path='/history' element={<History />} />
 
-        </Routes>
+                </Routes>
+
+            </userContext.Provider>
 
         </BrowserRouter>
     )

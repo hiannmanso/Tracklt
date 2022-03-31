@@ -22,5 +22,6 @@ export const Head = styled.div`
     .imgHeader{
         width: 51px;
         height: 51px;
+        border-radius: 98.5px;
     }
 `

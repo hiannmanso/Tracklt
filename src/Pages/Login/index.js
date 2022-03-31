@@ -1,15 +1,17 @@
-import { Link ,useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useState, useContext } from 'react'
 import axios from 'axios'
+import userContext from '../../Context/userContext'
 
 import * as styled from './style'
 import logoTracklt from './../../assets/Group 8.svg'
 
 export default function Login() {
     const navigate = useNavigate()
+    const { setInfoUser } = useContext(userContext)
     const [dataUser, setDataUser] = useState({
-        email: '',
-        password: '',
+        email: 'hiann@hiann.com',
+        password: 'hiann123',
     })
     function loginUser() {
         axios({
@@ -18,6 +20,7 @@ export default function Login() {
             data: dataUser
         }).then(response => {
             console.log(response.data)
+            setInfoUser(response.data)
             setDataUser({
                 email: '',
                 password: '',

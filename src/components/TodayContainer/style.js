@@ -47,14 +47,14 @@ export const Habit = styled.div`
         flex-direction: row;
         justify-content: space-between;
         width: calc(100% - 35px);
-        height: 94px;
+        min-height: 94px;
         padding: 13px 13px 12px 15px;
         margin: 0 17px 10px 18px;
         background: #FFFFFF;
         border-radius: 5px;
         h1{
-            width: 208px;
-            height: 25px;
+            min-width: 208px;
+            min-height: 25px;
             left: 33px;
             top: 190px;
 
@@ -70,7 +70,7 @@ export const Habit = styled.div`
         }
         p{
             width: 146px;
-            height: 32px;
+            min-height: 32px;
             left: 33px;
             top: 222px;
 
@@ -90,7 +90,7 @@ export const ContainerImg = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #EBEBEB;
+    background: ${props=> props.background};
     border: 1px solid #E7E7E7;
     box-sizing: border-box;
     border-radius: 5px;
