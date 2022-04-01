@@ -2,18 +2,21 @@ import certinho from './../../assets/Vector(5).svg'
 import * as style from './style'
 import dayjs from 'dayjs'
 import axios from 'axios'
-
+import { InfinitySpin,FallingLines  } from 'react-loader-spinner'
 import { useContext, useEffect, useState } from 'react'
 import userContext from './../../Context/userContext'
 
 export default function TodayContainer() {
     const { infoUser } = useContext(userContext)
-    
+
     const [dailyHabits, setDailyHabits] = useState()
 
     const weekdays = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
     let day = dayjs().format('DD/MM')
-
+    let lengthHabits = 0
+    let habitsDone = 0
+    const [percents,setPercents] = useState((parseFloat(habitsDone) / parseFloat(lengthHabits)) * 100)
+    // let percentsHabits = (parseFloat(habitsDone) / parseFloat(lengthHabits)) * 100
 
     useEffect(() => {
         axios({
@@ -24,6 +27,7 @@ export default function TodayContainer() {
             },
         }).then(response => {
             setDailyHabits(response.data)
+            lengthHabits = (response.data.length)
             console.log(response.data)
         }
         ).catch(err => { console.log(err) })
@@ -39,6 +43,9 @@ export default function TodayContainer() {
                 },
             }).then(response => {
                 console.log(response.data)
+
+                habitsDone -= 1
+
             }).catch(err => {
                 console.log(err)
                 console.log(id)
@@ -52,6 +59,8 @@ export default function TodayContainer() {
                 },
             }).then(response => {
                 console.log(response.data)
+                habitsDone += 1
+                console.log('habitos concluidos:', habitsDone, ' total de habitos:', lengthHabits, ' percents:', parseFloat(percents), typeof(habitsDone),typeof(lengthHabits))
             }).catch(err => {
                 console.log(err)
                 console.log(id)
@@ -63,13 +72,16 @@ export default function TodayContainer() {
         <style.ContainerToday>
             <style.HeaderToday>
                 <h1>{weekdays[dayjs().day()]}, {day}</h1>
-                <h2>Nenhum hábito concluído ainda</h2>
+                {habitsDone == 0 ? <FallingLines width="110" color='#126BA5'/>  : <h2>{percents} dos hábitos concluídos!</h2>}
+                {/* <h2>Nenhum hábito concluído ainda</h2> */}
             </style.HeaderToday>
             <div>
                 {dailyHabits ? dailyHabits.map((item) => {
+
+                    { item.done ? habitsDone += 1 : <></> }
                     return (
-                        <style.Habit>
-                            <div key={item.id}>
+                        <style.Habit key={item.id}>
+                            <div>
                                 <h1>{item.name}</h1>
                                 <p>Sequência atual:{item.currentSequence}<br /> Seu recorde:{item.highestSequence}</p>
                             </div>

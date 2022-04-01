@@ -2,9 +2,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState, useContext } from 'react'
 import axios from 'axios'
 import userContext from '../../Context/userContext'
+import { InfinitySpin,FallingLines  } from 'react-loader-spinner'
 
 import * as styled from './style'
 import logoTracklt from './../../assets/Group 8.svg'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function Login() {
     const navigate = useNavigate()
@@ -13,7 +16,13 @@ export default function Login() {
         email: 'hiann@hiann.com',
         password: 'hiann123',
     })
+    const [msgInput,setMsgInput] = useState('entrar')
+    const loadingInput = <FallingLines width="45" color='#126BA5'/> 
+    const [isDisabled,setIsDisabled] = useState(false)
+
     function loginUser() {
+        setMsgInput(loadingInput)
+        setIsDisabled(true)
         axios({
             method: 'post',
             url: 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login',
@@ -25,9 +34,15 @@ export default function Login() {
                 email: '',
                 password: '',
             })
+            setMsgInput('Cadastrar')
+            setIsDisabled(false)
+
             navigate('/habits')
         }).catch(err => {
             console.log(err)
+            setMsgInput('Cadastrar')
+            setIsDisabled(false)
+            toast.warn('email ou senha incorretos, por favor preencha corretamente seus dados!')
             setDataUser({
                 email: '',
                 password: '',
@@ -36,16 +51,17 @@ export default function Login() {
     }
     return (
         <>
+            <ToastContainer/>
             <styled.Log>
                 <img src={logoTracklt} alt='logo' />
                 <div className='inputsLogin'>
                     <input type='text' placeholder='email' value={dataUser.email} onChange={
-                        e => { setDataUser({ ...dataUser, email: e.target.value }) }} />
+                        e => { setDataUser({ ...dataUser, email: e.target.value }) }} disabled={isDisabled}/>
                     <input type='password' placeholder='password' value={dataUser.password} onChange={
-                        e => { setDataUser({ ...dataUser, password: e.target.value }) }} />
+                        e => { setDataUser({ ...dataUser, password: e.target.value }) }} disabled={isDisabled}/>
 
                 </div>
-                <button className='btnLogin' onClick={loginUser}>Entrar</button>
+                <button className='btnLogin' onClick={loginUser}>{msgInput}</button>
                 <Link to='/register' className='signinLink'>Não tem uma conta? Cadastre-se!</Link>
 
             </styled.Log>

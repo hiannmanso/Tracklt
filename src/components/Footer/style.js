@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { CircularProgressbar } from "react-circular-progressbar";
 
 
 export const Footer = styled.footer`
@@ -14,9 +15,7 @@ export const Footer = styled.footer`
     padding: 0 31px 0 36px;
     align-items: center;
     a{
-        width: 68px;
-        height: 22px;
-
+    
         font-family: 'Lexend Deca';
         font-style: normal;
         font-weight: 400;
@@ -27,4 +26,11 @@ export const Footer = styled.footer`
         color: #52B6FF;
 
     }
+`
+export const Circle = styled(CircularProgressbar)`
+    width: 91px;
+
+    overflow-y: visible;
+    margin-bottom: 35px;
+
 `

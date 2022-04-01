@@ -5,20 +5,27 @@ import userContext from '../../Context/userContext'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
- import treshIcon from './../../assets/Vector(6).svg'
+import treshIcon from './../../assets/Vector(6).svg'
 import * as style from './style'
 import icon from '../../assets/+.svg'
 
 export default function HabitsList() {
     const { infoUser, habits, setHabits } = useContext(userContext);
-
     const [changeCollor, setChangeCollor] = useState(false)
     const [createNewHabit, setCreateNewHabit] = useState(false)
+    const [color,setColor]= useState('FFFFFF')
     const [newHabit, setNewHabit] = useState({
         name: undefined,
         days: [],
     })
+    let listWeekdayColor = ['#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF','#FFFFFF']
+    let listWeekday = newHabit.days
     let week = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+
+    function selectWeekDay(item){
+        console.log(item.id)
+     
+    }
 
     useEffect(() => {
         axios({
@@ -54,15 +61,15 @@ export default function HabitsList() {
     }
     function deletHabit(id) {
         axios({
-            method:'delete',
-            url:`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
+            method: 'delete',
+            url: `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}`,
             headers: {
                 "Authorization": `Bearer ${infoUser.token}`
             },
-        }).then(response=>{
+        }).then(response => {
             console.log(response)
             toast.success('item deletado!')
-        }).catch(err=>{console.log(err)})
+        }).catch(err => { console.log(err) })
     }
 
 
@@ -88,10 +95,15 @@ export default function HabitsList() {
                         <style.Days>
                             {week.map((item, index) => {
                                 return (
-                                    <style.Day key={index} onClick={(e) => {
-                                        setNewHabit({ ...newHabit, days: [...newHabit.days, e.target.id] })
-                                        setChangeCollor(true)
-                                    }} id={index} bg={changeCollor ? '#126BA5' : 'FFFFFF'}>{item}</style.Day>
+                                    <style.Day
+                                        key={index}
+                                        onClick={(e) => {
+                                            setNewHabit({ ...newHabit, days: [...newHabit.days, e.target.id] })
+                                            selectWeekDay(e.target)
+                                        }}
+                                        id={index}
+                                        bg={changeCollor ? '#126BA5' : 'FFFFFF'}>{item}
+                                    </style.Day>
                                 )
                             })}
                         </style.Days>
@@ -128,11 +140,11 @@ export default function HabitsList() {
                                     {week.map((day, index) => {
 
                                         return (
-                                            <style.Day key ={index} id={index} bg={item.days.includes(index) ? '#126BA5' : '#FFFFFF'}>{day}</style.Day>
+                                            <style.Day key={index} id={index} bg={item.days.includes(index) ? '#126BA5' : '#FFFFFF'}>{day}</style.Day>
                                         )
                                     })}
                                 </div>
-                                <img onClick={()=>deletHabit(item.id)} className='icon' src={treshIcon} alt='nothing' />
+                                <img onClick={() => deletHabit(item.id)} className='icon' src={treshIcon} alt='nothing' />
                             </style.Habit>
                         )
                     })
