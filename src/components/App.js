@@ -11,9 +11,13 @@ import userContext from '../Context/userContext'
 export default function App() {
     const [infoUser, setInfoUser] = useState('');
     const [habits,setHabits] = useState([])
+    const [habitsLength,setHabitsLength] = useState(1);
+    const [habitschecked,setHabitsChecked]  = useState(0);
+    
+    
     return (
         <BrowserRouter>
-            <userContext.Provider value={{ infoUser, setInfoUser, habits, setHabits }}>
+            <userContext.Provider value={{ infoUser, setInfoUser, habits, setHabits,habitsLength,setHabitsLength,habitschecked,setHabitsChecked}}>
                 <Routes>
                     <Route path='/' element={<Login />} />
                     <Route path='/register' element={<SignIn />} />

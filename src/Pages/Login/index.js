@@ -20,7 +20,8 @@ export default function Login() {
     const loadingInput = <FallingLines width="45" color='#126BA5'/> 
     const [isDisabled,setIsDisabled] = useState(false)
 
-    function loginUser() {
+    function loginUser(e) {
+        e.preventDefault();
         setMsgInput(loadingInput)
         setIsDisabled(true)
         axios({
@@ -54,14 +55,14 @@ export default function Login() {
             <ToastContainer/>
             <styled.Log>
                 <img src={logoTracklt} alt='logo' />
-                <div className='inputsLogin'>
+                <form className='inputsLogin' onSubmit={loginUser}>
                     <input type='text' placeholder='email' value={dataUser.email} onChange={
                         e => { setDataUser({ ...dataUser, email: e.target.value }) }} disabled={isDisabled}/>
                     <input type='password' placeholder='password' value={dataUser.password} onChange={
                         e => { setDataUser({ ...dataUser, password: e.target.value }) }} disabled={isDisabled}/>
 
-                </div>
-                <button className='btnLogin' onClick={loginUser}>{msgInput}</button>
+                     <button className='btnLogin' type='submit'>{msgInput}</button>
+                </form>
                 <Link to='/register' className='signinLink'>Não tem uma conta? Cadastre-se!</Link>
 
             </styled.Log>

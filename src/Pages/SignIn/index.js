@@ -23,7 +23,8 @@ export default function SignIn() {
     const loadingInput = <FallingLines width="45" color='#126BA5'/> 
     const [isDisabled,setIsDisabled] = useState(false)
 
-    function registerNewUser() {
+    function registerNewUser(e) {
+        e.preventDefault()
         setMsgInput(loadingInput)
         setIsDisabled(true)
         axios({
@@ -64,7 +65,8 @@ export default function SignIn() {
         <>
             <styled.Log>
                 <img src={logoTracklt} alt='logo' />
-                <div className='inputsLogin'>
+                <form className='inputsLogin' onSubmit={registerNewUser}>
+                    
                     <input type='email' placeholder='email' value={dataUser.email} onChange={
                         (e) => setDataUser({ ...dataUser, email: e.target.value })}  disabled={isDisabled}/>
 
@@ -77,10 +79,10 @@ export default function SignIn() {
                     <input type='url' placeholder='picture' value={dataUser.image} onChange={
                         (e) => setDataUser({ ...dataUser, image: e.target.value })}  disabled={isDisabled}/>
 
+                    {dataUser.email != '' && dataUser.name != '' && dataUser.image != '' && dataUser.password != '' ? <button type='submit' className='btnLogin' >{msgInput}</button> : <button type='submit' className='btnLogin'  disabled>Cadastrar</button>}
 
-                </div>
+                </form>
                 <ToastContainer />
-                {dataUser.email != '' && dataUser.name != '' && dataUser.image != '' && dataUser.password != '' ? <button className='btnLogin' onClick={registerNewUser}>{msgInput}</button> : <button className='btnLogin' onClick={registerNewUser} disabled>Cadastrar</button>}
                 <Link to='/' className='signinLink'>Já tem uma conta? Faça login!</Link>
 
             </styled.Log>

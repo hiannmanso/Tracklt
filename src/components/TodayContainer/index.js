@@ -2,22 +2,28 @@ import certinho from './../../assets/Vector(5).svg'
 import * as style from './style'
 import dayjs from 'dayjs'
 import axios from 'axios'
-import { InfinitySpin,FallingLines  } from 'react-loader-spinner'
 import { useContext, useEffect, useState } from 'react'
 import userContext from './../../Context/userContext'
 
 export default function TodayContainer() {
-    const { infoUser } = useContext(userContext)
+    const { infoUser, habitsLength, habitschecked, setHabitsChecked, setHabitsLength } = useContext(userContext)
 
     const [dailyHabits, setDailyHabits] = useState()
-
+    const [isBoolean, setIsBoolean] = useState(false)
     const weekdays = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
     let day = dayjs().format('DD/MM')
-    let lengthHabits = 0
-    let habitsDone = 0
-    const [percents,setPercents] = useState((parseFloat(habitsDone) / parseFloat(lengthHabits)) * 100)
-    // let percentsHabits = (parseFloat(habitsDone) / parseFloat(lengthHabits)) * 100
+    // const [habitsLength,setHabitsLength] = useState(1);
+    // const [habitschecked,setHabitsChecked]  = useState(0);
+    
+    const [cont, setCont] = useState(0);
+    const [percents, setPercents] = useState(0);
+    // let percents = (habitschecked / habitsLength) * 100
 
+    useEffect(() => {
+
+        setPercents((habitschecked / habitsLength) * 100)
+
+    }, [habitschecked])
     useEffect(() => {
         axios({
             method: 'get',
@@ -27,13 +33,26 @@ export default function TodayContainer() {
             },
         }).then(response => {
             setDailyHabits(response.data)
-            lengthHabits = (response.data.length)
+            setHabitsLength(response.data.length)
             console.log(response.data)
+            let count = 0;
+            for (let item of response.data) {
+
+                if (item.done) {
+                    count ++
+                    console.log(count)
+                }
+            }
+            setHabitsChecked(count)
         }
         ).catch(err => { console.log(err) })
 
-    }, [dailyHabits])
+    }, [isBoolean])
+
     function checkHabit(id, done) {
+        setIsBoolean(!isBoolean)
+        // console.log(habitsLength, ' checked:', habitschecked, 'cont', cont, 'percents', percents)
+
         if (done) {
             axios({
                 method: 'post',
@@ -43,8 +62,14 @@ export default function TodayContainer() {
                 },
             }).then(response => {
                 console.log(response.data)
+                // { habitschecked == 0 ? <></> : setHabitsChecked(habitschecked - 1) }
+                for (let item of response.data) {
+                    if (item.done) {
+                        setCont(cont + 1)
+                    }
+                }
+                // setHabiCtshecked(cont)
 
-                habitsDone -= 1
 
             }).catch(err => {
                 console.log(err)
@@ -59,8 +84,14 @@ export default function TodayContainer() {
                 },
             }).then(response => {
                 console.log(response.data)
-                habitsDone += 1
-                console.log('habitos concluidos:', habitsDone, ' total de habitos:', lengthHabits, ' percents:', parseFloat(percents), typeof(habitsDone),typeof(lengthHabits))
+                // setHabitsChecked(habitschecked + 1)
+                for (let item of response.data) {
+                    if (item.done) {
+                        setCont(cont - 1)
+                    }
+                }
+                setHabitsChecked(cont)
+
             }).catch(err => {
                 console.log(err)
                 console.log(id)
@@ -72,13 +103,14 @@ export default function TodayContainer() {
         <style.ContainerToday>
             <style.HeaderToday>
                 <h1>{weekdays[dayjs().day()]}, {day}</h1>
-                {habitsDone == 0 ? <FallingLines width="110" color='#126BA5'/>  : <h2>{percents} dos hábitos concluídos!</h2>}
-                {/* <h2>Nenhum hábito concluído ainda</h2> */}
+
+                {/* console.log(habitsLength,' checked:',habitschecked, 'cont' , cont, 'percents', percents) */}
+                {habitschecked ? <h2>{percents.toFixed(2)}% dos habitos concluídos! </h2> : <h2>Nenhum hábito concluído ainda</h2>}
+                {/* {habitsDone == 0 ? <FallingLines width="110" color='#126BA5' /> : <h2>{percents} dos hábitos concluídos!</h2>} */}
+
             </style.HeaderToday>
             <div>
                 {dailyHabits ? dailyHabits.map((item) => {
-
-                    { item.done ? habitsDone += 1 : <></> }
                     return (
                         <style.Habit key={item.id}>
                             <div>

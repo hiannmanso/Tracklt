@@ -106,6 +106,29 @@ export const Days = styled.div`
     display: flex;
     flex-direction: row;
     margin: 0px 0 29px 19px;
+    .selected{
+            width: 30px;
+        height: 30px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 4px;
+        border: 1px solid #D5D5D5;
+        box-sizing: border-box;
+        border-radius: 5px;
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19.976px;
+        line-height: 25px;
+        
+        background:#126BA5;
+        color: #DBDBDB;
+        :hover{
+            background: #126BA5;
+    }
+    }
     `
 export const Day = styled.div`
     width: 30px;
@@ -124,7 +147,7 @@ export const Day = styled.div`
     font-size: 19.976px;
     line-height: 25px;
     
-    background: ${props => props.bg};
+    background:${props => props.bg};
     color: #DBDBDB;
     :hover{
         background: #126BA5;
@@ -134,10 +157,12 @@ export const Day = styled.div`
 export const ButtonsNewHabit = styled.div`
     display: flex;
     flex-direction: row;
+    
 `
-export const ButtonNewHabit = styled.div`
+export const ButtonNewHabit = styled.button`
     width: 84px;
     height: 35px;
+    border: none;
 
     font-family: 'Lexend Deca';
     font-style: normal;
