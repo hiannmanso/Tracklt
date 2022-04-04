@@ -12,18 +12,15 @@ export default function TodayContainer() {
     const [isBoolean, setIsBoolean] = useState(false)
     const weekdays = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado']
     let day = dayjs().format('DD/MM')
-    // const [habitsLength,setHabitsLength] = useState(1);
-    // const [habitschecked,setHabitsChecked]  = useState(0);
-    
     const [cont, setCont] = useState(0);
     const [percents, setPercents] = useState(0);
-    // let percents = (habitschecked / habitsLength) * 100
 
     useEffect(() => {
 
         setPercents((habitschecked / habitsLength) * 100)
 
     }, [habitschecked])
+
     useEffect(() => {
         axios({
             method: 'get',
@@ -34,13 +31,11 @@ export default function TodayContainer() {
         }).then(response => {
             setDailyHabits(response.data)
             setHabitsLength(response.data.length)
-            console.log(response.data)
             let count = 0;
             for (let item of response.data) {
 
                 if (item.done) {
-                    count ++
-                    console.log(count)
+                    count++
                 }
             }
             setHabitsChecked(count)
@@ -51,8 +46,6 @@ export default function TodayContainer() {
 
     function checkHabit(id, done) {
         setIsBoolean(!isBoolean)
-        // console.log(habitsLength, ' checked:', habitschecked, 'cont', cont, 'percents', percents)
-
         if (done) {
             axios({
                 method: 'post',
@@ -61,19 +54,13 @@ export default function TodayContainer() {
                     "Authorization": `Bearer ${infoUser.token}`
                 },
             }).then(response => {
-                console.log(response.data)
-                // { habitschecked == 0 ? <></> : setHabitsChecked(habitschecked - 1) }
                 for (let item of response.data) {
                     if (item.done) {
                         setCont(cont + 1)
                     }
                 }
-                // setHabiCtshecked(cont)
-
-
             }).catch(err => {
                 console.log(err)
-                console.log(id)
             })
         } else {
             axios({
@@ -83,8 +70,6 @@ export default function TodayContainer() {
                     "Authorization": `Bearer ${infoUser.token}`
                 },
             }).then(response => {
-                console.log(response.data)
-                // setHabitsChecked(habitschecked + 1)
                 for (let item of response.data) {
                     if (item.done) {
                         setCont(cont - 1)
@@ -94,7 +79,6 @@ export default function TodayContainer() {
 
             }).catch(err => {
                 console.log(err)
-                console.log(id)
             })
         }
     }
@@ -104,9 +88,7 @@ export default function TodayContainer() {
             <style.HeaderToday>
                 <h1>{weekdays[dayjs().day()]}, {day}</h1>
 
-                {/* console.log(habitsLength,' checked:',habitschecked, 'cont' , cont, 'percents', percents) */}
                 {habitschecked ? <h2>{percents.toFixed(2)}% dos habitos concluídos! </h2> : <h2>Nenhum hábito concluído ainda</h2>}
-                {/* {habitsDone == 0 ? <FallingLines width="110" color='#126BA5' /> : <h2>{percents} dos hábitos concluídos!</h2>} */}
 
             </style.HeaderToday>
             <div>

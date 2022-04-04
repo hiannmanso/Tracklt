@@ -12,9 +12,7 @@ import icon from '../../assets/+.svg'
 
 export default function HabitsList() {
     const { infoUser, habits, setHabits } = useContext(userContext);
-    const [changeCollor, setChangeCollor] = useState(false)
     const [createNewHabit, setCreateNewHabit] = useState(false)
-    const [color, setColor] = useState('FFFFFF')
     const [newHabit, setNewHabit] = useState({
         name: undefined,
         days: [],
@@ -27,7 +25,7 @@ export default function HabitsList() {
     let week = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
 
     function selectWeekDay(item) {
-        if (item.className == 'selected') {
+        if (item.className === 'selected') {
             item.className = 'sc-breuTD iCNbXX'
         } else {
             item.className = 'selected'
@@ -38,7 +36,6 @@ export default function HabitsList() {
     }
 
     useEffect(() => {
-        console.log('entrou')
         axios({
             method: 'get',
             url: 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits',
@@ -77,7 +74,6 @@ export default function HabitsList() {
             },
             data: newHabit
         }).then(response => {
-            console.log(response)
             toast.success('novo hábito adicionado!')
             setIsDisabled(false)
             setNewHabit({name:'', days:[]})
@@ -88,7 +84,6 @@ export default function HabitsList() {
         }).catch(err => {
             console.log(err)
             toast.warn('hábito não adicionado! por favor preencha todas as informações.')
-            // console.log(infoUser, ' ', newHabit)
             setIsDisabled(false)
             setCreateNewHabit(false)
             setNewHabit({name:'', days:[]})

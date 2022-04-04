@@ -1,5 +1,4 @@
 import tracklt from "./../../assets/TrackIt.svg"
-import bob from './../../assets/Rectangle 14.svg'
 import * as style from "./style"
 
 import { useContext } from 'react'
@@ -11,7 +10,7 @@ export default function Header() {
         <>
             <style.Head>
               <img className="logo" src={tracklt} alt='logoTracklt'/>    
-              <img className="imgHeader" src={infoUser.image} alt='bob'/>    
+              <img className="imgHeader" src={infoUser.image} alt='imgUser'/>    
             </style.Head>
         </>
     )

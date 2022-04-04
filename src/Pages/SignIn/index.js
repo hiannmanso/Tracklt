@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify'
-import { InfinitySpin,FallingLines  } from 'react-loader-spinner'
+import { FallingLines  } from 'react-loader-spinner'
 
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -11,8 +11,6 @@ import logoTracklt from './../../assets/Group 8.svg'
 
 export default function SignIn() {
     const navegation = useNavigate()
-    // const notify = (mensage) => toast.success(mensage);
-    const [mensage, setMensage] = useState('')
     const [dataUser, setDataUser] = useState({
         email: '',
         name: '',
@@ -79,7 +77,7 @@ export default function SignIn() {
                     <input type='url' placeholder='picture' value={dataUser.image} onChange={
                         (e) => setDataUser({ ...dataUser, image: e.target.value })}  disabled={isDisabled}/>
 
-                    {dataUser.email != '' && dataUser.name != '' && dataUser.image != '' && dataUser.password != '' ? <button type='submit' className='btnLogin' >{msgInput}</button> : <button type='submit' className='btnLogin'  disabled>Cadastrar</button>}
+                    {dataUser.email !== '' && dataUser.name !== '' && dataUser.image !== '' && dataUser.password !== '' ? <button type='submit' className='btnLogin' >{msgInput}</button> : <button type='submit' className='btnLogin'  disabled>Cadastrar</button>}
 
                 </form>
                 <ToastContainer />

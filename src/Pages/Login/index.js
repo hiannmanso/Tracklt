@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useState, useContext } from 'react'
 import axios from 'axios'
 import userContext from '../../Context/userContext'
-import { InfinitySpin,FallingLines  } from 'react-loader-spinner'
+import { FallingLines  } from 'react-loader-spinner'
 
 import * as styled from './style'
 import logoTracklt from './../../assets/Group 8.svg'
