@@ -13,8 +13,8 @@ export default function Login() {
     const navigate = useNavigate()
     const { setInfoUser } = useContext(userContext)
     const [dataUser, setDataUser] = useState({
-        email: 'hiann@hiann.com',
-        password: 'hiann123',
+        email: '',
+        password: '',
     })
     const [msgInput,setMsgInput] = useState('entrar')
     const loadingInput = <FallingLines width="45" color='#126BA5'/> 

@@ -106,6 +106,29 @@ export const Days = styled.div`
     display: flex;
     flex-direction: row;
     margin: 0px 0 29px 19px;
+    .unselected{
+        width: 30px;
+        height: 30px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 4px;
+        border: 1px solid #D5D5D5;
+        box-sizing: border-box;
+        border-radius: 5px;
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19.976px;
+        line-height: 25px;
+        
+        background:${props => props.bg};
+        color: #DBDBDB;
+        :hover{
+            background: #126BA5;
+    }
+    }
     .selected{
             width: 30px;
         height: 30px;

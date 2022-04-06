@@ -26,7 +26,7 @@ export default function HabitsList() {
 
     function selectWeekDay(item) {
         if (item.className === 'selected') {
-            item.className = 'sc-breuTD iCNbXX'
+            item.className = 'unselected'
         } else {
             item.className = 'selected'
 
